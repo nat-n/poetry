@@ -82,8 +82,9 @@ exist it will look for <comment>pyproject.toml</> and do the same.
             # If this is a true error it will be picked up later by build anyway.
             return 0
 
+        self.line("")
         self.line(
-            "  - Installing <c1>{}</c1> (<c2>{}</c2>)".format(
+            "<b>Installing</> the current project: <c1>{}</c1> (<c2>{}</c2>)".format(
                 self.poetry.package.pretty_name, self.poetry.package.pretty_version
             )
         )

@@ -1,3 +1,5 @@
+import os
+
 from poetry.core.packages import Package
 from poetry.utils._compat import Path
 from poetry.utils._compat import metadata
@@ -59,8 +61,15 @@ class InstalledRepository(Repository):
                             "{}.pth".format(package.pretty_name)
                         ).open() as f:
                             directory = Path(f.readline().strip())
-                            package.source_type = "directory"
-                            package.source_url = directory.as_posix()
+
+                            is_directory = (
+                                os.path.exists(str(directory))
+                                or directory.is_absolute()
+                            )
+
+                            if is_directory:
+                                package.source_type = "directory"
+                                package.source_url = directory.as_posix()
 
                     continue
 
